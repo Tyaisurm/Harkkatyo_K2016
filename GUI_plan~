@@ -1,0 +1,47 @@
+main menu:
+
+Lisää smartpost kartalle
+(valitse paikkakunta)
+(valitse smartpost)
+(lisää nappi)
+
+poista karttaan merkityt merkinnät
+(kaikki)
+
+*kun uusi reitti määritetään, kaikki edelliset merkinnät poistetaan
+
+
+luo paketti
+(valitse esine)
+(valitse pakettiluokka)
+(*selostukset tuotteesta ja pakettiluokasta)
+luo uusi esine
+(nimi)
+(selostus)
+(paino)
+(onko särkyvää?)
+
+->lisää varastoon
+(eli tallenna lähetyspaikkakunta ja jättöpiste)
+
+muokkaa pakettia
+(muokkaa sisältöä)
+(vaihda luokkaa)
+
+lähetä paketti
+(valitse varastosta paketti)
+*näkyy tiedot paketista ja lähtöpaikka
+(valitse lähetyskohde)
+*tarkista matkan pituus ja paketin paino
+->jos ei käy, kehota muuttamaan tietoja
+
+->mikäli riski että särkyy matkalla, laske 50/50 että meneekö rikki
+->ilmoita paketin status lokissa
+(kaikki toiminnot kirjataan lokiin, jonka voi halutessa tallentaa)
+
+tietokanta-asetukset
+(päivitä postitietokanta)
+*puhdas päivitys
+->poistaa kaiken, lisää kaiken alusta asti uusiksi
+*päivitä uudet
+->lisää uudet pisteet tietokantaan

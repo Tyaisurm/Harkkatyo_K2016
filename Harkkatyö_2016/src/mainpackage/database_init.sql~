@@ -1,0 +1,73 @@
+CREATE TABLE "Object"(
+	"Description" VARCHAR(255) NOT NULL,
+	"Weight" FLOAT NOT NULL,
+	"Size"	INTEGER NOT NULL,
+	"Name" VARCHAR(255) NOT NULL,
+	"Fragile" BOOL NOT NULL,
+	"ObjectID" INTEGER,
+
+	PRIMARY KEY (ObjectID)
+);
+CREATE TABLE "PacketType"(
+	"Class" INTEGER NOT NULL,
+	"Description" VARCHAR(255) NOT NULL,
+	"TravelLimit" INTEGER NOT NULL,
+	"SizeLimit" INTEGER NOT NULL,
+
+	PRIMARY KEY (Class)
+);
+CREATE TABLE "History"(
+	"DeliveryID" INTEGER,
+	"SentDate" TIMESTAMP NOT NULL,
+	"ObjectName" VARCHAR(255),
+	"FragileStatus" BOOL NOT NULL,
+	"Status" VARCHAR(255) NOT NULL,
+	"FromPost" VARCHAR(255) NOT NULL,
+	"ToPost" VARCHAR(255) NOT NULL,
+
+	PRIMARY KEY(DeliveryID)
+);
+CREATE TABLE "Smartpost"(
+	"PostID" INTEGER,
+	"PostDescription" VARCHAR(255) NOT NULL,
+	"Availability" VARCHAR(255) NOT NULL,
+
+	PRIMARY KEY(PostID)
+);
+CREATE TABLE "AddressSP"(
+	"PostID" INTEGER,
+	"Postcode" INTEGER NOT NULL,
+	"StreetAddress" VARCHAR(255) NOT NULL,
+	"City" VARCHAR(255) NOT NULL,
+
+	PRIMARY KEY(PostID),
+	FOREIGN KEY(PostID) REFERENCES Smartpost(PostID)
+);
+CREATE TABLE "CoordinatesSP"(
+	"PostID"INTEGER,
+	"Lat" VARCHAR(255) NOT NULL,
+	"Lng" VARCAHR(255) NOT NULL,
+
+	PRIMARY KEY(PostID),
+	FOREIGN KEY(PostID) REFERENCES Smartpost(PostID)
+);
+CREATE TABLE "Warehouse"(
+	"PacketID" INTEGER,
+	"Class" INTEGER NOT NULL,
+	"ObjectID" INTEGER NOT NULL,
+	"ToPostID"INTEGER NOT NULL,
+	"FromPostID" INTEGER NOT NULL,
+
+	PRIMARY KEY (PacketID),
+	FOREIGN KEY (Class) REFERENCES PacketType(Class),
+	FOREIGN KEY (ToPostID) REFERENCES Smartpost(PostID),
+	FOREIGN KEY (FromPostID) REFERENCES Smartpost(postID),
+	FOREIGN KEY (ObjectID) REFERENCES Object(ObjectID)
+);
+
+INSERT INTO "Object" VALUES('Kestävä muki. Kunkin kahvinjuojan sankari.',0.2,2,'DogeMugi2.0','FALSE',NULL);
+INSERT INTO "Object" VALUES('Heikko kassi. Päivittäin vaihdettava, mutta hieno',2.0,3,'CateKassi1.0','TRUE',NULL);
+INSERT INTO "Object" VALUES('Kylpijän vakiovaruste',0.1,1,'Kylpyankka Vaakku','FALSE',NULL);
+INSERT INTO "Object" VALUES('Iso, äänekäs ja mahtava! Käsittele silti varoen.',100.0,9,'Pikimusta piano','TRUE',NULL);
+
+INSERT INTO "PacketType" VALUES(1,'Pikakyyti',150,5),(2,'Turvakyyti',-1,10),(3,'Stressinpurku',-1,10);

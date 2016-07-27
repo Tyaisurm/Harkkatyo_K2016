@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainpackage.FXML_mainController">
+   <children>
+      <TabPane fx:id="tabPane" layoutX="178.0" layoutY="123.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="20.0" tabMaxWidth="100.0" tabMinHeight="20.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="tab_timotei" closable="false" style="-fx-font-weight: bold;" text="T.I.M.O.T.E.I">
+            <content>
+              <AnchorPane>
+                     <children>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                            <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="240.0" style="-fx-background-image: url(&quot;/graphics/BG.png&quot;);">
+                                 <children>
+                                    <ComboBox fx:id="choose_area_combo" layoutX="29.0" layoutY="114.0" onAction="#spAreaChosen" prefWidth="150.0" promptText="Ei valintaa" />
+                                    <ComboBox fx:id="choose_smartpost_combo" layoutX="29.0" layoutY="162.0" prefWidth="150.0" promptText="Ei valintaa" />
+                                    <Label layoutX="30.0" layoutY="74.0" prefHeight="16.0" prefWidth="181.0" style="-fx-font-weight: bold;" text="Lisää Smartpost kartalle" />
+                                    <Label layoutX="29.0" layoutY="147.0" text="Smartpost-piste" />
+                                    <ImageView fitHeight="43.0" fitWidth="230.0" layoutX="11.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../graphics/timotei_logo.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="29.0" layoutY="99.0" text="Paikkakunta" />
+                                    <Button fx:id="remove_map_marks" layoutX="29.0" layoutY="199.0" mnemonicParsing="false" onAction="#removeMapMarks" text="Poista karttamerkinnät" />
+                                    <Button fx:id="add_sp_button" layoutX="29.0" layoutY="232.0" mnemonicParsing="false" onAction="#addSmartPost" text="Lisää SmartPost kartalle" />
+                                    <Button fx:id="create_order_button" layoutX="28.0" layoutY="295.0" mnemonicParsing="false" onAction="#createOrder" text="Luo uusi lähetys" />
+                                    <ComboBox fx:id="send_order_comb" layoutX="28.0" layoutY="348.0" prefWidth="150.0" promptText="Ei valintaa" />
+                                    <Button fx:id="send_order_button" layoutX="30.0" layoutY="396.0" mnemonicParsing="false" onAction="#sendOrder" text="Lähetä lähetys" />
+                                    <Button fx:id="check_order_button" layoutX="29.0" layoutY="458.0" mnemonicParsing="false" onAction="#checkingOrder" text="Tarkista lähetys" />
+                                    <Button fx:id="database_settings_button" layoutX="37.0" layoutY="613.0" mnemonicParsing="false" onAction="#openDatabaseSettings" text="Tietokanta-asetukset" />
+                                    <Label layoutX="29.0" layoutY="267.0" style="-fx-font-weight: bold;" text="Lähetystenhallinta" />
+                                    <Label layoutX="28.0" layoutY="329.0" text="1. Valitse lähetys" />
+                                    <Label layoutX="28.0" layoutY="381.0" text="2. Paina &quot;Lähetä lähetys&quot;" />
+                                    <Label layoutX="18.0" layoutY="421.0" prefHeight="43.0" prefWidth="229.0" text="Voit halutessasi tarkistaa lähetyksen (tai tyhjätä varaston)" wrapText="true" />
+                                    <Label fx:id="check_error_label" layoutX="30.0" layoutY="483.0" style="-fx-font-weight: bold; -fx-text-fill: red;" />
+                                    <ImageView fx:id="doge_on_path" fitHeight="54.0" fitWidth="52.0" layoutX="55.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../graphics/dogeicon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="packet_on_path" fitHeight="65.0" fitWidth="75.0" layoutX="134.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../graphics/box.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="label_on_path" layoutX="36.0" layoutY="491.0" style="-fx-font-weight: bold; -fx-text-fill: green;" text="Nauti paketistasi :-)" visible="false" />
+                                    <Label fx:id="error_sp_label" layoutX="180.0" layoutY="164.0" prefHeight="21.0" prefWidth="50.0" style="-fx-font-weight: bold; -fx-text-fill: red; -fx-font-size: 17;" />
+                                    <Button fx:id="del_wh_button" layoutX="155.0" layoutY="458.0" mnemonicParsing="false" onAction="#deleteWarehouse" text="Tyhjennä" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <WebView fx:id="webview" layoutX="-26.0" layoutY="21.0" prefHeight="371.0" prefWidth="360.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tab_log" closable="false" style="-fx-font-weight: bold;" text="Log">
+            <content>
+              <AnchorPane>
+                     <children>
+                        <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="log_listview" style="-fx-background-image: url(&quot;/graphics/log_empty3.png&quot;);" VBox.vgrow="ALWAYS">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem fx:id="log_savebutton" mnemonicParsing="false" onAction="#saveLogToFile" text="Save Log" />
+                                          <MenuItem fx:id="log_clearbutton" mnemonicParsing="false" onAction="#clearLog" text="Clear Log" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
+                              </ListView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab closable="false" style="-fx-font-weight: bold;" text="History">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="658.0" prefWidth="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="history_listview" style="-fx-background-image: url(&quot;/graphics/history_empty.png&quot;);" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

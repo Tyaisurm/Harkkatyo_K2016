@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(&quot;/graphics/BG.png&quot;);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainpackage.FXML_newPackageController">
+   <children>
+      <Label layoutX="33.0" layoutY="82.0" style="-fx-font-weight: bold;" text="Valitse esine" />
+      <ImageView fitHeight="65.0" fitWidth="272.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../graphics/timotei_logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="319.0" layoutY="30.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 17;" text="Uuden lähetyksen luonti">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="250.0" layoutY="103.0" text="TAI" />
+      <Label layoutX="329.0" layoutY="83.0" style="-fx-font-weight: bold;" text="Luo uusi esine (sitten valitse)" />
+      <TextField fx:id="weight_input" layoutX="329.0" layoutY="111.0" prefHeight="25.0" prefWidth="122.0" promptText="Paino (kg)" />
+      <ComboBox fx:id="choose_size_class_combo" layoutX="459.0" layoutY="111.0" prefHeight="25.0" prefWidth="122.0" promptText="Kokoluokka" />
+      <TextField fx:id="name_input" layoutX="329.0" layoutY="142.0" promptText="Nimi" />
+      <TextArea fx:id="description_input" layoutX="330.0" layoutY="171.0" prefHeight="54.0" prefWidth="229.0" promptText="Selostus" />
+      <CheckBox fx:id="fragile_choice" layoutX="442.0" layoutY="234.0" mnemonicParsing="false" text="Särkyvää" />
+      <Button fx:id="create_object_button" layoutX="335.0" layoutY="231.0" mnemonicParsing="false" onAction="#createObject" text="Luo esine" />
+      <ComboBox fx:id="choose_object_combo" layoutX="33.0" layoutY="98.0" onAction="#objectChosen" prefWidth="150.0" promptText="Ei valintaa" />
+      <ComboBox fx:id="choose_class_combo" layoutX="33.0" layoutY="209.0" onAction="#classChosen" prefHeight="25.0" prefWidth="150.0" promptText="Ei valintaa" />
+      <Label layoutX="36.0" layoutY="193.0" style="-fx-font-weight: bold;" text="Valitse pakettiluokka" />
+      <ComboBox fx:id="order_origin_combo" layoutX="81.0" layoutY="285.0" prefHeight="25.0" prefWidth="158.0" promptText="FROM SmartPost" />
+      <ComboBox fx:id="from_city_combo" layoutX="82.0" layoutY="310.0" onAction="#fromCityChosen" prefHeight="25.0" prefWidth="157.0" promptText="FROM Kaupunki" />
+      <ComboBox fx:id="order_target_combo" layoutX="335.0" layoutY="285.0" prefHeight="25.0" prefWidth="149.0" promptText="TO SmartPost" />
+      <ComboBox fx:id="to_city_combo" layoutX="335.0" layoutY="310.0" onAction="#toCityChose" prefWidth="150.0" promptText="TO Kaupunki" />
+      <Label layoutX="81.0" layoutY="270.0" style="-fx-font-weight: bold;" text="Valitse lähetyspaikka" />
+      <Label layoutX="335.0" layoutY="271.0" style="-fx-font-weight: bold;" text="Valitse kohdepaikka" />
+      <Button fx:id="confirm_order_button" layoutX="182.0" layoutY="346.0" mnemonicParsing="false" onAction="#createOrder" text="Vahvista tiedot ja luo lähetys" />
+      <Label fx:id="object_name_label" layoutX="24.0" layoutY="135.0" style="-fx-font-weight: bold;" text="Esineen nimi" wrapText="true" />
+      <Label fx:id="object_description_label" alignment="TOP_LEFT" layoutX="24.0" layoutY="149.0" prefHeight="45.0" prefWidth="208.0" text="Esineen selostus" wrapText="true" />
+      <Label fx:id="error_prompt_label" layoutX="398.0" layoutY="351.0" style="-fx-font-weight: bold; -fx-text-fill: red;" />
+      <Label layoutX="33.0" layoutY="236.0" style="-fx-font-weight: bold;" text="Kokoluokkarajoitus:" />
+      <Label fx:id="size_class_restrict_label" layoutX="183.0" layoutY="237.0" />
+      <Label layoutX="33.0" layoutY="249.0" style="-fx-font-weight: bold;" text="Matkarajoitus:" />
+      <Label fx:id="travel_restrict_label" layoutX="142.0" layoutY="250.0" />
+      <Label layoutX="185.0" layoutY="374.0" style="-fx-font-weight: bold;" text="Matkan pituus:" />
+      <Label fx:id="travel_label" layoutX="297.0" layoutY="375.0" prefHeight="15.0" prefWidth="298.0" />
+   </children>
+</AnchorPane>

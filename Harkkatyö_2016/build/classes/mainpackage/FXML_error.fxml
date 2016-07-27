@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="211.0" prefWidth="470.0" style="-fx-background-image: url(&quot;/graphics/BG.png&quot;);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainpackage.FXML_errorController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="310.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../graphics/dogesad.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="ok_button" layoutX="134.0" layoutY="153.0" mnemonicParsing="false" onAction="#pressedOK" text="OK :3" />
+      <Label layoutX="28.0" layoutY="82.0" style="-fx-font-weight: bold;" text="1 broken database == 1 sad doge" />
+      <Label layoutX="28.0" layoutY="98.0" prefHeight="52.0" prefWidth="294.0" text="Olethan ystävällinen ja tyhjennät varaston ennen näiden asetusten muokkaamista" wrapText="true" />
+   </children>
+</AnchorPane>

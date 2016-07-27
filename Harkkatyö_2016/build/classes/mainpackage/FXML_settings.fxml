@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="263.0" prefWidth="635.0" style="-fx-background-image: url(&quot;/graphics/BG.png&quot;);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainpackage.FXML_settingsController">
+   <children>
+      <ImageView fitHeight="67.0" fitWidth="237.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../graphics/timotei_logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="325.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 17;" text="Tietokanta-asetukset" />
+      <Label layoutX="17.0" layoutY="161.0" style="-fx-font-weight: bold;" text="Palauta tietokannan oletustila" />
+      <Button fx:id="default_button" layoutX="17.0" layoutY="178.0" mnemonicParsing="false" onAction="#restoreDefaultState" text="Palauta" />
+      <Label layoutX="17.0" layoutY="104.0" style="-fx-font-weight: bold;" text="Lataa SmartPostit uudestaan" />
+      <Button fx:id="SP_reset_button" layoutX="17.0" layoutY="121.0" mnemonicParsing="false" onAction="#resetSmartPostData" text="Lataa" />
+      <Button fx:id="exterminate_button" layoutX="372.0" layoutY="209.0" mnemonicParsing="false" onAction="#exterminate_database" text="EXTERMINATE" />
+      <Label layoutX="372.0" layoutY="193.0" style="-fx-font-weight: bold;" text="Poista kaikki data tietokannasta" />
+      <Button fx:id="delete_selected_object_button" layoutX="371.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeSelectedObject" text="Poista valittu esine" />
+      <Label layoutX="372.0" layoutY="71.0" style="-fx-font-weight: bold;" text="Muokkaa esineitä" />
+      <ComboBox fx:id="object_combo" layoutX="371.0" layoutY="87.0" prefWidth="150.0" promptText="Valitse Esine" />
+      <Label layoutX="346.0" layoutY="158.0" prefHeight="39.0" prefWidth="291.0" text="Emme suosittele tämän alla olevan napin painamista mielenterveyden säästämiseksi." wrapText="true" />
+      <Label layoutX="17.0" layoutY="202.0" prefHeight="39.0" prefWidth="238.0" text="Niin kauan kun näet pyörivän Dogen, älä koske mihinkään. Kiitos!" wrapText="true" />
+      <Label fx:id="exterminated_label" layoutX="495.0" layoutY="214.0" style="-fx-font-weight: bold; -fx-text-fill: red;" />
+   </children>
+</AnchorPane>

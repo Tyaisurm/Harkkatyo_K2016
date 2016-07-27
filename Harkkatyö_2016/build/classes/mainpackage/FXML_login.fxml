@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainpackage.FXML_loginController">
+   <children>
+      <ImageView fx:id="timotei_BG" fitHeight="581.0" fitWidth="393.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../graphics/BG_login.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="timotei_doge" fitHeight="146.0" fitWidth="136.0" layoutX="125.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../graphics/dogeicon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="timotei_loading" fitHeight="226.0" fitWidth="230.0" layoutX="87.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../graphics/loading_icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="timotei_loadinglabel" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="290.0" prefHeight="140.0" prefWidth="384.0" style="-fx-font-style: italic; -fx-font-size: 17;" wrapText="true" />
+      <TextField fx:id="username_field" layoutX="108.0" layoutY="323.0" promptText="Käyttäjänimi" style="-fx-background-color: lightgray;" />
+      <ProgressBar fx:id="timotei_progressbar" layoutX="95.0" layoutY="438.0" prefWidth="200.0" progress="0.0" style=": ;" visible="false" />
+      <PasswordField fx:id="password_field" layoutX="108.0" layoutY="368.0" promptText="Salasana" style="-fx-background-color: lightgray;" />
+      <Button fx:id="login_button" layoutX="158.0" layoutY="417.0" mnemonicParsing="false" onAction="#login_button_pressed" style="-fx-font-style: italic; -fx-font-weight: bold;" text="Kirjaudu" />
+      <CheckBox fx:id="database_choice" layoutX="51.0" layoutY="460.0" mnemonicParsing="false" onAction="#databaseChoiceClicked" text="Haluan käyttää olemassaolevaa tietokantaa" />
+      <Label fx:id="error_prompt_label" layoutX="127.0" layoutY="401.0" style="-fx-font-weight: bold; -fx-text-fill: red;" />
+      <CheckBox fx:id="warehouse_choice" layoutX="51.0" layoutY="479.0" mnemonicParsing="false" text="Haluan käyttää nykyistä varastoa" visible="false" />
+   </children>
+</AnchorPane>
