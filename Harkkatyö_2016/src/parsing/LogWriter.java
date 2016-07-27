@@ -21,7 +21,7 @@ public class LogWriter {
     private LogWriter() {
         //
         //lw2 = new ListView();
-        lw = new ListView();
+        lw = new ListView<>();
         Calendar cal = Calendar.getInstance();
         lw.getItems().add(cal.getTime().toString() + " : " + "LogWriter instance created...");
     }

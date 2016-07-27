@@ -68,7 +68,7 @@ public class Database_manager {
                 pst.setString(1, spArea);
             }
             ResultSet rs = pst.executeQuery();
-            spal = new ArrayList();
+            spal = new ArrayList<>();
             while (rs.next()) {
                 int postID = rs.getInt("PostID");
                 String postDesc = rs.getString("PostDescription");
@@ -98,7 +98,7 @@ public class Database_manager {
         try {
             Connection c;
             PreparedStatement pst;
-            al = new ArrayList();
+            al = new ArrayList<>();
             //Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
@@ -127,13 +127,13 @@ public class Database_manager {
         try {
             Connection c;
             Statement stmt;
-            al = new ArrayList();
+            al = new ArrayList<>();
             //Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
 
             PreparedStatement pst;
-            al = new ArrayList();
+            al = new ArrayList<>();
             String query = "SELECT * FROM object;";
             pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -163,13 +163,13 @@ public class Database_manager {
         ArrayList<temp_storage.Package> al = null;
         try {
             Connection c;
-            al = new ArrayList();
+            al = new ArrayList<>();
             //Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
 
             PreparedStatement pst;
-            al = new ArrayList();
+            al = new ArrayList<>();
             String query = "SELECT * FROM packettype;";
             pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -257,13 +257,13 @@ public class Database_manager {
         ArrayList<temp_storage.Order> al = null;
         try {
             Connection c;
-            al = new ArrayList();
+            al = new ArrayList<>();
             //Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
 
             PreparedStatement pst;
-            al = new ArrayList();
+            al = new ArrayList<>();
             String query = "SELECT * FROM warehouse;";
             pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -366,7 +366,7 @@ public class Database_manager {
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
 
-            al = new ArrayList();
+            al = new ArrayList<>();
 
             //otetaan FROM SmartPost listaan
             String query1 = "SELECT * FROM smartpost "
@@ -494,7 +494,7 @@ public class Database_manager {
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
 
-            al = new ArrayList();
+            al = new ArrayList<>();
             PreparedStatement pst1;
             String command1 = "SELECT * FROM history "
                     + "INNER JOIN packettype ON history.classid = packettype.classid;";

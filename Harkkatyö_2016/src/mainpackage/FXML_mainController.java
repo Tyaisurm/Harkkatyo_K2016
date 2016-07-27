@@ -321,7 +321,7 @@ public class FXML_mainController implements Initializable {
             String lngTO = to.getLng();
             String colorTO = "'0000FF'";
             String infoTO = "'" + to.getPostDescription() + "'";
-            ArrayList<Double> alPath = new ArrayList();
+            ArrayList<Double> alPath = new ArrayList<>();
             alPath.add(parseDouble(latFROM));
             alPath.add(parseDouble(lngFROM));
             alPath.add(parseDouble(latTO));

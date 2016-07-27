@@ -84,7 +84,7 @@ public class FXML_newPackageController implements Initializable {
         ArrayList<temp_storage.Object> objects_al;
         ArrayList<temp_storage.Package> packageType_al;
 
-        ArrayList<Integer> sizeClass_al = new ArrayList();
+        ArrayList<Integer> sizeClass_al = new ArrayList<>();
         for (int a = 1; a < 11; a++) {
             sizeClass_al.add(a);
         }
@@ -141,7 +141,7 @@ public class FXML_newPackageController implements Initializable {
 
     @FXML
     private void createOrder(ActionEvent event) {
-        ArrayList<String> gps = new ArrayList();
+        ArrayList<String> gps = new ArrayList<>();
         temp_storage.Object obj = choose_object_combo.getSelectionModel().getSelectedItem();
         if (obj != null) {
             SmartPost spFROM = order_origin_combo.getSelectionModel().getSelectedItem();
