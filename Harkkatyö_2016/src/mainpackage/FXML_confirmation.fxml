@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="260.0" prefWidth="600.0" style="-fx-background-image: url(&quot;/graphics/BG.png&quot;);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="mainpackage.FXML_confirmationController">
+   <children>
+      <Label layoutX="195.0" layoutY="57.0" style="-fx-font-weight: bold; -fx-font-size: 50; -fx-font-family: Impact;" text="VAROITUS!" />
+      <Label layoutX="79.0" layoutY="130.0" style="-fx-font-weight: bold;" text="Olet tekemässä muutoksia, joita ei voida perua jälkeenpäin." />
+      <Label layoutX="226.0" layoutY="158.0" style="-fx-font-weight: bold;" text="Oletko varma tästä?" />
+      <Button fx:id="confirm_no_button" layoutX="344.0" layoutY="200.0" mnemonicParsing="false" onAction="#confirmNO" prefHeight="25.0" prefWidth="67.0" text="En ole" />
+      <Button fx:id="confirm_yes_button" layoutX="195.0" layoutY="200.0" mnemonicParsing="false" onAction="#confirmYES" prefHeight="25.0" prefWidth="67.0" text="Kyllä" />
+   </children>
+</AnchorPane>
