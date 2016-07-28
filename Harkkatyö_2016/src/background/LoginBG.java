@@ -16,6 +16,7 @@ public class LoginBG extends Task<Void> {
     LogWriter lw = LogWriter.getInstance();
 
     @Override
+    //kun Doge ilmestyy loginin jälkeen (jos ei luoda uutta tietokantaa)
     protected Void call() throws Exception {
         lw.logThis("Using existing database by user choice...");
         this.updateMessage("Generating those dank memes");
@@ -29,6 +30,7 @@ public class LoginBG extends Task<Void> {
         this.updateMessage("Generating those dank memes...PASSED.");
         Thread.sleep(2000);
         return null;
+        //P.S. Doge on wow :^)
     }
 
 }

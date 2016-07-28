@@ -13,14 +13,13 @@ import javafx.scene.control.ListView;
  * @author m7942
  */
 public class LogWriter {
+    //Tämä on ohjelman lokinpitäjä ja kirjuri. Jos jotain tapahtuu, tämä luokka
+    //kirjaa kutsuttaessa annetun ilmoituksen ylös.
 
     private static LogWriter instance = null;
     private ListView<String> lw;
-    //private ListView<String> lw2;
 
     private LogWriter() {
-        //
-        //lw2 = new ListView();
         lw = new ListView<>();
         Calendar cal = Calendar.getInstance();
         lw.getItems().add(cal.getTime().toString() + " : " + "LogWriter instance created...");
@@ -33,9 +32,8 @@ public class LogWriter {
         return instance;
     }
 
-    public void logThis(String input, ListView<String> lwIn) {
-        //lw2nd.logthis(input);,this.log_listview
-        for (String s : lw.getItems()) {
+    public void logThis(String input, ListView<String> lwIn) {//Erikoismetodi. Kutsutaan vain kun "näkyvä" loki on luotu ohjelmassa,
+        for (String s : lw.getItems()) {                      //jotta saadaan kaikki tiedot näkyviin näppärästi.
             lwIn.getItems().add(s);
         };
         lw = lwIn;
@@ -43,13 +41,13 @@ public class LogWriter {
         lw.getItems().add(cal.getTime().toString() + " : " + input);
     }
 
-    public void logThis(String input) {
+    public void logThis(String input) {//Perusmetodi. Tätä kutsutaan.
         Calendar cal = Calendar.getInstance();
         lw.getItems().add(cal.getTime().toString() + " : " + input);
     }
 
 
-    public ListView<String> getListView() {
+    public ListView<String> getListView() {//palauttaa viittauksen näkyvään ListViewiin
         return this.lw;
     }
 

@@ -26,6 +26,8 @@ import parsing.LogWriter;
  * @author m7942
  */
 public class FXML_confirmationController implements Initializable {
+    //tämä otus kutsutaan kun halutaan varmistaa että käyttäjä tietää mitä
+    //tekee. Eli, jotain voi mennä kohta rikki :) (Avaa tietokanta-asetukset)
 
     LogWriter lw = LogWriter.getInstance();
     Database_manager dbm = Database_manager.getInstance();
@@ -44,13 +46,14 @@ public class FXML_confirmationController implements Initializable {
     }
 
     @FXML
-    private void confirmNO(ActionEvent event) {
+    private void confirmNO(ActionEvent event) {//ei tiedä mitä tekee
+                                               //(knew it!)
         Stage stage = (Stage) confirm_no_button.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    private void confirmYES(ActionEvent event) {
+    private void confirmYES(ActionEvent event) {//tietää mitä tekee(toivottavasti D:)
         try {
             if (dbm.isWarehouseEmpty()) {
                 Parent root3;

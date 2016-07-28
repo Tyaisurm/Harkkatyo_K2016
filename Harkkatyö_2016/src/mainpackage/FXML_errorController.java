@@ -22,10 +22,14 @@ import parsing.LogWriter;
  * TÄMÄ EI TULE OLEMAAN PAKOLLINEN!!!
  * TÄMÄN SIJAAN VOISI KÄYTTÄÄ "Alert"-luokkaa, tai mahdollisesti 3rd party JavaFX CONTROLLER
  * 
+ * Käytettiin silti :3
  * 
  * @author m7942
  */
 public class FXML_errorController implements Initializable {
+    //Tämä kutsutaan kun halutaan näyttää käyttäjälle virheilmoitus-popup
+    //Siis, kyseessä on itkevä doge joka pelkää tietokannan menevän sekaisin
+    //...poor thing :c
     
     LogWriter lw = LogWriter.getInstance();
     

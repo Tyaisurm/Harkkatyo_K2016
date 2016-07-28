@@ -23,6 +23,9 @@ import parsing.LogWriter;
  * @author m7942
  */
 public class FXML_loadingController implements Initializable {
+    //Tämä on kutsuttaessa miniatyyriversio sisäänkirjautumisikkunan pyörivästä
+    //dogesta. Sama käyttötarkoitus, mutta muualla kuin siellä(Koska kuka muka laittaisi
+    //kaksi latauskuvaketta ilmoittamaan YHDESTÄ latauksesta :S).
     
     LogWriter lw = LogWriter.getInstance();
     
@@ -37,6 +40,8 @@ public class FXML_loadingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //You spin me right round, baby / Right round like a record, baby / Right round round round
+        //:D
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         final KeyValue kv = new KeyValue(loading_circle.rotateProperty(),-360);

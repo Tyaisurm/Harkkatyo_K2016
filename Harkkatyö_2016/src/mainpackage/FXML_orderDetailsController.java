@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import parsing.*;
-import temp_storage.*;
 
 /**
  * FXML Controller class
@@ -22,9 +21,12 @@ import temp_storage.*;
  * @author m7942
  */
 public class FXML_orderDetailsController implements Initializable {
+    //tämä kutsutaan, kun halutaan nähdä jonkin tietyn paketin tiedot
+    //esim. mitä se pitää sisällään, mistä ja minne se on matkalla
 
     LogWriter lw = LogWriter.getInstance();
     Database_manager dbm = Database_manager.getInstance();
+    InterfaceController ifc = InterfaceController.getInstance();
 
     @FXML
     private Button ok_button;
@@ -57,7 +59,7 @@ public class FXML_orderDetailsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        temp_storage.Order order = dbm.getShowOrderDetails();
+        temp_storage.Order order = ifc.getShowOrderDetails();
         temp_storage.Details details = dbm.showOrderDetails(order);
         objID_label.setText(Integer.toString(details.getObjID()));
         whID_label.setText(Integer.toString(details.getWhID()));
@@ -78,7 +80,7 @@ public class FXML_orderDetailsController implements Initializable {
     }
 
     @FXML
-    private void okClicked(ActionEvent event) {
+    private void okClicked(ActionEvent event) {//suljetaan ikkuna
         Stage stage = (Stage) ok_button.getScene().getWindow();
         stage.close();
     }

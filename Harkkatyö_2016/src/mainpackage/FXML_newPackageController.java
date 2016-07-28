@@ -28,6 +28,8 @@ import temp_storage.*;
  * @author m7942
  */
 public class FXML_newPackageController implements Initializable {
+    //tämä kutsutaan, kun halutaan luoda uusi paketti. Tämän ikkunan sisällä on
+    //mahdollista luoda sekä uusia paketteja, että esineitä.
 
     LogWriter lw = LogWriter.getInstance();
     Database_manager dbm = Database_manager.getInstance();
@@ -73,6 +75,8 @@ public class FXML_newPackageController implements Initializable {
     private WebView wv;
     @FXML
     private Label travel_label;
+    @FXML
+    private Label size_class_label;
 
     /**
      * Initializes the controller class.
@@ -102,8 +106,8 @@ public class FXML_newPackageController implements Initializable {
     }
 
     @FXML
-    private void createObject(ActionEvent event) {//kaikissa max 255 merkkiä, paino on REAL, max 2000
-        try {
+    private void createObject(ActionEvent event) {//kaikissa syötteissä max 255 merkkiä, paino on REAL, max 2000
+        try {                                     //Tässä luodaan uusi esine tietokantaan.
             double weight = parseDouble(weight_input.getText());
             String name = name_input.getText();
             boolean fragile = fragile_choice.isSelected();
@@ -136,11 +140,11 @@ public class FXML_newPackageController implements Initializable {
         } catch (NumberFormatException ex) {
             error_prompt_label.setText("Virheellisiä syötteitä!");
         }
-        //tarkistetaan syötettyjen arvojen oikeellisuus...
+        //tarkistettu syötettyjen arvojen oikeellisuus...
     }
 
     @FXML
-    private void createOrder(ActionEvent event) {
+    private void createOrder(ActionEvent event) {//kun luodaan uusi paketti
         ArrayList<String> gps = new ArrayList<>();
         temp_storage.Object obj = choose_object_combo.getSelectionModel().getSelectedItem();
         if (obj != null) {
@@ -148,7 +152,7 @@ public class FXML_newPackageController implements Initializable {
             if (spFROM != null) {
                 SmartPost spTO = order_target_combo.getSelectionModel().getSelectedItem();
                 if (spTO != null) {
-                    if (spFROM.getPostID() != spTO.getPostID()) {
+                    if (spFROM.getPostID() != spTO.getPostID()) {//tarkistetaan että ei sama lähtö-ja kohdeosoite
                         temp_storage.Package pck = choose_class_combo.getSelectionModel().getSelectedItem();
                         if (pck != null) {
                             if (pck.getSizeLimit() >= obj.getSize()) {
@@ -167,10 +171,6 @@ public class FXML_newPackageController implements Initializable {
                                     dbm.setOrder(null, objectID, packageClassID, toPostID, fromPostID);
                                     ArrayList<Order> al = dbm.getOrderAL();
                                     ComboBox<Order> combo = ifc.getOrderCombo();
-                                    
-                                    for(Order o : al){
-                                        System.out.println("HUEHUHEUH_ID " + o.getWarehouseID());
-                                    }
                                     
                                     combo.getItems().setAll(al);
                                     error_prompt_label.setText("Uusi paketti luotu!");
@@ -200,15 +200,16 @@ public class FXML_newPackageController implements Initializable {
     }
 
     @FXML
-    private void objectChosen(ActionEvent event) {
+    private void objectChosen(ActionEvent event) {//kun on valittu esine, näytetään tiedot
         temp_storage.Object obj = choose_object_combo.getSelectionModel().getSelectedItem();
         object_name_label.setText(obj.getName());
         object_description_label.setText(obj.getDescription());
+        size_class_label.setText(Integer.toString(obj.getSize()));
 
     }
 
     @FXML
-    private void fromCityChosen(ActionEvent event) {
+    private void fromCityChosen(ActionEvent event) {//näytetään valitun paikkakunnan SPt
         String area = from_city_combo.getSelectionModel().getSelectedItem();
         ArrayList<SmartPost> al = dbm.getSPAL(area);
         order_origin_combo.getItems().setAll(al);
@@ -216,7 +217,7 @@ public class FXML_newPackageController implements Initializable {
     }
 
     @FXML
-    private void toCityChose(ActionEvent event) {
+    private void toCityChose(ActionEvent event) {//näytetään valitun paikkakunnan SPt
         String area = to_city_combo.getSelectionModel().getSelectedItem();
         ArrayList<SmartPost> al = dbm.getSPAL(area);
         order_target_combo.getItems().setAll(al);
@@ -224,13 +225,12 @@ public class FXML_newPackageController implements Initializable {
     }
 
     @FXML
-    private void classChosen(ActionEvent event) {
+    private void classChosen(ActionEvent event) {//näytetään valitun pakettiluokan tiedot
         temp_storage.Package pck = choose_class_combo.getSelectionModel().getSelectedItem();
         String travellimit = Double.toString(pck.getTravelLimit());
         String sizelimit = Integer.toString(pck.getSizeLimit());
         size_class_restrict_label.setText(sizelimit);
         travel_restrict_label.setText(travellimit);
-
     }
 
 }

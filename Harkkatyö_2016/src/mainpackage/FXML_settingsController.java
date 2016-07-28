@@ -29,9 +29,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import parsing.Database_manager;
 import parsing.InterfaceController;
-import background.LoaderBGW;
+import background.LoaderBG;
 import parsing.LogWriter;
-import temp_storage.*;
 
 /**
  * FXML Controller class
@@ -39,6 +38,7 @@ import temp_storage.*;
  * @author m7942
  */
 public class FXML_settingsController implements Initializable {
+    //Tämä kutsutaan kun halutaan muokata tietokannan asetuksia
 
     LogWriter lw = LogWriter.getInstance();
     InterfaceController ifc = InterfaceController.getInstance();
@@ -70,11 +70,11 @@ public class FXML_settingsController implements Initializable {
     }
 
     @FXML
-    private void restoreDefaultState(ActionEvent event) {
+    private void restoreDefaultState(ActionEvent event) {//palautetaan tietokanta oletustilaan
         exterminated_label.setText("");
         lw.logThis("Restoring database default state...");
         Stage stage = new Stage();
-        Task task = new LoaderBGW();
+        Task task = new LoaderBG();
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("FXML_loading.fxml"));
@@ -92,10 +92,9 @@ public class FXML_settingsController implements Initializable {
             lw.logThis("..." + ex.getMessage());
             lw.logThis("...@" + this.getClass());
         }
-        task.setOnSucceeded((Event event1) -> {
+        task.setOnSucceeded((Event event1) -> {//taustaprosessi onnistui
             stage.close();
             lw.logThis("Database default state restored!");
-            temp_storage.Object object = object_combo.getSelectionModel().getSelectedItem();
             object_combo.valueProperty().set(null);
             ArrayList<temp_storage.Object> objects_al;
             objects_al = dbm.getObjectAL();
@@ -122,7 +121,7 @@ public class FXML_settingsController implements Initializable {
             
 
         });
-        task.setOnFailed((Event event2) -> {
+        task.setOnFailed((Event event2) -> {//taustaprosessi meni puihin
             stage.close();
             lw.logThis("#Database default state setup failed!");
         });
@@ -132,7 +131,7 @@ public class FXML_settingsController implements Initializable {
     }
 
     @FXML
-    private void resetSmartPostData(ActionEvent event) {
+    private void resetSmartPostData(ActionEvent event) {//ladataan uusiksi vain SP-tietokanta
 
         Task task = new SmartPostDefBG();
         lw.logThis("Deleting and redownloading SmartPost data...");
@@ -154,7 +153,7 @@ public class FXML_settingsController implements Initializable {
             lw.logThis("..." + ex.getMessage());
             lw.logThis("...@" + this.getClass());
         }
-        task.setOnSucceeded((Event event1) -> {
+        task.setOnSucceeded((Event event1) -> {//taustaprosessi onnistui
             stage.close();
             lw.logThis("SmartPost data refreshed!");
 
@@ -169,7 +168,7 @@ public class FXML_settingsController implements Initializable {
             areacombo.getItems().setAll(choose_area_al);            
 
         });
-        task.setOnFailed((Event event2) -> {
+        task.setOnFailed((Event event2) -> {//taustaprosessi meni puihin
             stage.close();
             lw.logThis("#SmartPost data setup failed!");
         });
@@ -179,6 +178,8 @@ public class FXML_settingsController implements Initializable {
 
     @FXML
     private void exterminate_database(ActionEvent event) {
+        //Kas niin, tämä on täysin turha(vaarallinen) nappi joka rikkoo koko ohjelman tuhoamalla DB:n
+        //alkutekijöihinsä. "Nuke"-nappi, jos niin voisi sanoa.
         lw.logThis("Exterminating database...");
         try {
             BufferedWriter out;
@@ -188,14 +189,14 @@ public class FXML_settingsController implements Initializable {
             exterminated_label.setText("Kaikki hajos ny!");
             lw.logThis("DATABASE HAS BEEN EXTERMINATED!!!");
             // Stage stageThis = (Stage) default_button.getScene().getWindow();
-            //stageThis.close();
+            //stageThis.close(); TÄTÄ EI KÄYTETÄ
         } catch (IOException ex) {
             lw.logThis("#IOException happened when trying to delete database...");
         }
     }
 
     @FXML
-    private void removeSelectedObject(ActionEvent event) {
+    private void removeSelectedObject(ActionEvent event) {//poistetaan valittu esine tietokannasta
         temp_storage.Object object = object_combo.getSelectionModel().getSelectedItem();
         object_combo.valueProperty().set(null);
         dbm.delObject(object);

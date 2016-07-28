@@ -7,10 +7,6 @@
 package background;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import static java.lang.Integer.parseInt;
@@ -22,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import javafx.concurrent.Task;
-import javafx.scene.control.ComboBox;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,8 +26,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import parsing.Database_manager;
-import parsing.InterfaceController;
 import parsing.LogWriter;
 /**
  *
@@ -43,6 +36,8 @@ public class SmartPostDefBG extends Task<Void>{
     private Document document;
 
     @Override
+    //tämä kutsutaan kun halutaan resetoida tietokannassa olevat "SmartPost" taulut.
+    //eli, kun halutaan hakea uusimmat SmartPostit resetoimatta koko tietokantaa
     protected Void call() throws Exception {
         this.updateMessage("Tietokanta oli tyhjä tai se halutaan korvata...");
         lw.logThis("Preparing database initialization...");
@@ -59,6 +54,8 @@ public class SmartPostDefBG extends Task<Void>{
         Element element = (Element) node;
         if (element == null) {
             this.updateMessage("Virhe SmartPost-dataa ladatessa!");
+            lw.logThis("#Unable to load SmartPost XML! Inputnode was null!");
+            lw.logThis("...@" + this.getClass());
             Thread.sleep(1000);
             this.failed();
         } else {
@@ -68,7 +65,7 @@ public class SmartPostDefBG extends Task<Void>{
             PreparedStatement pst;
             Thread.sleep(1000);
 
-            try {
+            try {//tässä poistetaan vanha ja lisätään uusi SQL:n avulla
                 
                 String command = "DELETE FROM smartpost";
 
@@ -96,7 +93,7 @@ public class SmartPostDefBG extends Task<Void>{
                 ps2.setNull(1, Types.INTEGER);
                 ps2.setNull(1, Types.INTEGER);
 
-                while (nl.getLength() > i) {
+                while (nl.getLength() > i) {//otetaan halutut tiedot XML-dokumentista ja tungetaan tietokantaan :)
                     //this.updateMessage("Odotetaan...");
                     //this.updateMessage("EI ODOTETA!!!!");
                     Thread.sleep(50);
@@ -116,7 +113,6 @@ public class SmartPostDefBG extends Task<Void>{
                     ps3.setString(2, latS);
                     String lngS = e.getElementsByTagName("lng").item(0).getTextContent();
                     ps3.setString(3, lngS);
-                    //System.out.println(codeI + cityS + addressS + availabilityS + postofficeS + latS + lngS);
                     this.updateMessage("Ladataan SmartPost: " + postofficeS);
                     ps1.execute();
                     ps2.execute();
@@ -143,7 +139,7 @@ public class SmartPostDefBG extends Task<Void>{
                 lw.logThis("..." + ex.getCause());
                 lw.logThis("..." + ex.getMessage());
                 lw.logThis("...@" + this.getClass());
-                this.updateMessage("Virhe SmartPost-dataa ladatessa! Avataan ohjelma....");
+                this.updateMessage("Virhe havaittu! Avataan ohjelma....");
                 Thread.sleep(1000);
                 this.failed();
 
@@ -156,7 +152,7 @@ public class SmartPostDefBG extends Task<Void>{
         }*/
         return null;
     }
-    private String getCode() {//haetaan annetusta URL lähdekoodi, joka palautetaan String muodossa
+    private String getCode() {//haetaan annetusta URL lähdekoodi, joka palautetaan String muodossa(TÄTÄ EI KÄYTETÄ ATM!)
         String urlS = "http://smartpost.ee/fi_apt.xml";
         URL url;
         String content = "";

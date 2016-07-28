@@ -16,6 +16,9 @@ import javafx.scene.web.WebView;
  * @author m7942
  */
 public class InterfaceController {
+    //Tämä luokka pitää huolen siitä, että ikkunat voivat muokkailla toistensa sisältöä vaivattomasti
+    //Jokaisella tämän luokan muuttujalla on siis oma getter ja setter
+    
     LogWriter lw = LogWriter.getInstance();
     private static InterfaceController instance = null;
     
@@ -24,6 +27,7 @@ public class InterfaceController {
     private ComboBox<String> choose_area_combo;
     private ComboBox<temp_storage.SmartPost> choose_smartpost_combo;
     ListView<String> history_listview;
+    private temp_storage.Order order;
     
     private InterfaceController() {
         lw.logThis("InterfaceController instance created...");
@@ -68,5 +72,13 @@ public class InterfaceController {
     }
     public void setHistory(ListView<String> in){
         this.history_listview = in;
+    }
+    
+    public void setShowOrderDetails(temp_storage.Order orderIN) {
+        this.order = orderIN;
+    }
+
+    public temp_storage.Order getShowOrderDetails() {
+        return this.order;
     }
 }

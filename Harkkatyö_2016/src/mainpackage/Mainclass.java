@@ -19,6 +19,7 @@ import parsing.LogWriter;
  * @author m7942
  */
 public class Mainclass extends Application {
+    //Tämä on ohjelman pääluokka, joka kutsutaan ensimmäisenä. Tässä ei ole mitään erikoista
     
     static LogWriter lw = LogWriter.getInstance();
     private static Stage pStage;

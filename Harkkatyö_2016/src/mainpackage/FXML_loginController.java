@@ -5,7 +5,7 @@
  */
 package mainpackage;
 
-import background.LoaderBGW;
+import background.LoaderBG;
 import background.LoginBG;
 import java.io.BufferedReader;
 import java.io.File;
@@ -85,6 +85,7 @@ public class FXML_loginController implements Initializable {
 
     @FXML
     private void login_button_pressed(ActionEvent event) throws IOException {
+        //Yritetään kirjautua sisään
         if (!username_field.getText().equals("admin") || (!password_field.getText().equals("password"))) {
             //jos käyttäjänimi ja salasana ei toimi
             luku++;
@@ -92,10 +93,13 @@ public class FXML_loginController implements Initializable {
             lw.logThis("...by username: " + username_field.getText());
             error_prompt_label.setText("Virheelliset tiedot!");
         } else {
+            //jos sisäänkirjautuminen onnistui
+            if(login_button.isVisible()){//tämä tehdään vain kerran >:c
             error_prompt_label.setText("");
             luku++;
             lw.logThis("Login attempt: " + luku + "...PASSED.");
             lw.logThis("...by username: " + username_field.getText());
+            
             //tämä dialog ei ole enää käytössä...
        /*Dialog dialog = new Dialog();
              dialog.setTitle("Wow! Much Error!");
@@ -105,6 +109,7 @@ public class FXML_loginController implements Initializable {
              dialog.getDialogPane().getButtonTypes().add(ButtonType.OK); 
              Optional result = dialog.showAndWait();*/
 
+            //You spin me right round, baby / Right round like a record, baby / Right round round round
             timotei_loading.setVisible(true);
             final Timeline timeline = new Timeline();
             timeline.setCycleCount(Timeline.INDEFINITE);
@@ -119,6 +124,7 @@ public class FXML_loginController implements Initializable {
             final KeyFrame kf2 = new KeyFrame(Duration.millis(7000), kv2);
             timeline2.getKeyFrames().add(kf2);
             timeline2.play();
+            
 
             login_button.setVisible(false);
             username_field.setVisible(false);
@@ -126,12 +132,13 @@ public class FXML_loginController implements Initializable {
             database_choice.setVisible(false);
             warehouse_choice.setVisible(false);
             timotei_progressbar.setVisible(true);
-            //timotei_loadinglabel.setText("Generating those dank memes...");
-            if (!database_choice.isSelected()) {
-                Task task = new LoaderBGW();
+            }
+            if (!database_choice.isSelected()) {//Halutaan luoda uusi tietokanta
+                Task task = new LoaderBG();
                 timotei_progressbar.progressProperty().bind(task.progressProperty());
                 timotei_loadinglabel.textProperty().bind(task.messageProperty());
-                task.setOnSucceeded((Event event2) -> {
+                task.setOnSucceeded((Event event2) -> {//taustaprosessi meni onnistuneesti loppuun
+                    lw.logThis("New database creation succeeded!");
                     Parent root3;
                     try {
                         Stage stage3 = Mainclass.getStage();
@@ -152,7 +159,7 @@ public class FXML_loginController implements Initializable {
                         lw.logThis("...@" + this.getClass());
                     }
                 });
-                task.setOnFailed((Event event3) -> {
+                task.setOnFailed((Event event3) -> {//taustaprosessi meni puihin
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -160,7 +167,7 @@ public class FXML_loginController implements Initializable {
                         lw.logThis("..." + ex.getMessage());
                         lw.logThis("...@" + this.getClass());
                     }
-                    lw.logThis("#SmartPost-data download failed!");
+                    lw.logThis("#New database creation failed!");
                     Parent root3;
                     try {
                         Stage stage3 = Mainclass.getStage();
@@ -185,20 +192,18 @@ public class FXML_loginController implements Initializable {
                 Thread thread = new Thread(task);
                 thread.start();
             } else {
-                if (!warehouse_choice.isSelected()) {//halutaan luoda uusi varasto
-                    System.out.println("HUEH");
+                if (!warehouse_choice.isSelected()) {//halutaan luoda vain uusi varasto
                     ArrayList<temp_storage.Order> orderAL = dbm.getOrderAL();
                     if (orderAL != null) {
-                        System.out.println("EI ollut order null");
                         if (!orderAL.isEmpty()) {
-                            System.out.println("Ei ollut order empty");
-                            for(temp_storage.Order order : orderAL){
-                                System.out.println("POISTETAAN: "+order.getWarehouseID());
+                            for (temp_storage.Order order : orderAL) {
                                 dbm.delOrder(order, false, 2);
                             }
                         }
                     }
                 }
+                //edellinen vain tyhjentää varaston, se ei varsinaisesti "poista" sitä.
+                //loput toimivat samoin valitsi vanhan varaston tai ei.
                 BufferedReader in;
                 try {
                     in = new BufferedReader(new FileReader("DB.sqlite"));
@@ -208,14 +213,10 @@ public class FXML_loginController implements Initializable {
                     in = new BufferedReader(new FileReader("DB.sqlite"));
                 }
 
-                //File file = new File("DB.sqlite");
-                //System.out.println(file.length());
-                //System.out.println(file.getAbsolutePath());
-                //System.out.println(file.getTotalSpace());
                 if (in.readLine() == null) {
                     database_choice.setSelected(false);
                     warehouse_choice.setSelected(false);
-                    lw.logThis("Database was empty! Creating new with defaults...");
+                    lw.logThis("Database not found! Creating new with defaults...");
                     this.login_button_pressed(event);
                 } else {
                     Task task2 = new LoginBG();
@@ -223,7 +224,32 @@ public class FXML_loginController implements Initializable {
                     timotei_loadinglabel.textProperty().bind(task2.messageProperty());
                     Thread thread2 = new Thread(task2);
                     thread2.start();
-                    task2.setOnSucceeded(new EventHandler() {
+                    task2.setOnSucceeded(new EventHandler() {//taustaprosessi onnistui
+                        @Override
+                        public void handle(Event event2) {
+                            lw.logThis("Opening program without new database...");
+                            Parent root3;
+                            try {
+                                Stage stage3 = Mainclass.getStage();
+                                root3 = FXMLLoader.load(getClass().getResource("FXML_main.fxml"));
+                                Scene scene3 = new Scene(root3);
+                                stage3.setScene(scene3);
+                                stage3.setResizable(true);
+                                stage3.setFullScreen(true);
+                                Image image3 = new Image(getClass().getResourceAsStream("/graphics/doge_icon.png"));
+                                stage3.getIcons().add(image3);
+                                stage3.setTitle("T.I.M.O.T.E.I - Loota kulkee kun Doge polkee");
+                                //stage3.setResizable(true);
+                                //stage3.setFullScreen(true);
+                                //stage3.show();
+                            } catch (IOException ex) {
+                                lw.logThis("#IOException when opening FXML_main.fxml!");
+                                lw.logThis("..." + ex.getMessage());
+                                lw.logThis("...@" + this.getClass());
+                            }
+                        }
+                    });
+                    task2.setOnFailed(new EventHandler() {//taustaprosessi meni puihin
                         @Override
                         public void handle(Event event2) {
                             Parent root3;
@@ -255,9 +281,9 @@ public class FXML_loginController implements Initializable {
 
     @FXML
     private void databaseChoiceClicked(ActionEvent event) {
-        if(database_choice.isSelected()){
+        if (database_choice.isSelected()) {
             warehouse_choice.setVisible(true);
-        } else{
+        } else {
             warehouse_choice.setSelected(false);
             warehouse_choice.setVisible(false);
         }

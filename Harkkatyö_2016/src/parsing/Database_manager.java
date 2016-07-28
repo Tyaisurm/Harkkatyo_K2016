@@ -15,11 +15,12 @@ import temp_storage.*;
  * @author m7942
  */
 public class Database_manager {
+    //Tämä on pääasiallinen luokka kun tehdään asioita SQL-tietokannassa
+    //"background" kansiossa on toiset luokat, jotka käyttävät tietokantaa itsestään suoraan
 
     LogWriter lw = LogWriter.getInstance();
     TempStorageController tsc = TempStorageController.getInstance();
 
-    private temp_storage.Order order;
     private static Database_manager instance = null;
 
     private Database_manager() {
@@ -34,13 +35,6 @@ public class Database_manager {
         return instance;
     }
 
-    public void setShowOrderDetails(temp_storage.Order orderIN) {
-        this.order = orderIN;
-    }
-
-    public temp_storage.Order getShowOrderDetails() {
-        return this.order;
-    }
 
     /*public ComboBox<temp_storage.Order> getOrderCombo() {
      return this.send_order_comb;
@@ -49,7 +43,7 @@ public class Database_manager {
      public void setOrderCombo(ComboBox<temp_storage.Order> combo) {
      send_order_comb = combo;
      }*/
-    public ArrayList<temp_storage.SmartPost> getSPAL(String spArea) {
+    public ArrayList<temp_storage.SmartPost> getSPAL(String spArea) {//Palautetaan AL, jossa on lista SmartPosteista
         ArrayList<temp_storage.SmartPost> spal = null;
         try {
             Connection c;
@@ -93,7 +87,7 @@ public class Database_manager {
         return spal;
     }
 
-    public ArrayList<String> getSPAreaAL() {
+    public ArrayList<String> getSPAreaAL() {//Palautetaan AL, jossa on tiedot SP paikkakunnista
         ArrayList<String> al = null;
         try {
             Connection c;
@@ -102,7 +96,6 @@ public class Database_manager {
             //Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
-            //lw.logThis("Database opened successfully. Preparing to retrieve SmartPost Area-data...");
             String query = "SELECT DISTINCT city from addresssp";
             pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -122,7 +115,7 @@ public class Database_manager {
         return al;
     }
 
-    public ArrayList<temp_storage.Object> getObjectAL() {
+    public ArrayList<temp_storage.Object> getObjectAL() {//palautetaan AL, jossa on lista esineistä
         ArrayList<temp_storage.Object> al = null;
         try {
             Connection c;
@@ -159,7 +152,7 @@ public class Database_manager {
         return al;
     }
 
-    public ArrayList<temp_storage.Package> getPackageAL() {
+    public ArrayList<temp_storage.Package> getPackageAL() {//Palautetaan AL, jossa on lista pakettityypeistä
         ArrayList<temp_storage.Package> al = null;
         try {
             Connection c;
@@ -193,7 +186,7 @@ public class Database_manager {
         return al;
     }
 
-    public void setObject(String description, double weight, int size, String name, boolean bool, Integer objectID) {
+    public void setObject(String description, double weight, int size, String name, boolean bool, Integer objectID) {//luodaan uusi esine tietokantaan
         try {
             Connection c;
             //Class.forName("org.sqlite.JDBC");
@@ -224,7 +217,7 @@ public class Database_manager {
     }
 
     //jotta voi olla null
-    public void setOrder(Integer packetID, int packageClassID, int objectID, int toPostID, int fromPostID) {
+    public void setOrder(Integer packetID, int packageClassID, int objectID, int toPostID, int fromPostID) {//luodaan uusi paketti/tilaus tietokantaan
         try {
             Connection c;
             //Class.forName("org.sqlite.JDBC");
@@ -253,7 +246,7 @@ public class Database_manager {
         }
     }
 
-    public ArrayList<temp_storage.Order> getOrderAL() {
+    public ArrayList<temp_storage.Order> getOrderAL() {//palautetaan AL, jossa on lista paketeista/tilauksista
         ArrayList<temp_storage.Order> al = null;
         try {
             Connection c;
@@ -288,7 +281,7 @@ public class Database_manager {
         return al;
     }
 
-    public temp_storage.Details showOrderDetails(temp_storage.Order order) {
+    public temp_storage.Details showOrderDetails(temp_storage.Order order) {//palautetaan tiedot sisääntulevasta(order) paketista
         int whID = order.getWarehouseID();
         int objID = order.getObjectID();
         int pckType = order.getPackageClassID();
@@ -356,7 +349,7 @@ public class Database_manager {
         return details;
     }
 
-    public ArrayList<temp_storage.SmartPost> getSendAL(temp_storage.Order order) {
+    public ArrayList<temp_storage.SmartPost> getSendAL(temp_storage.Order order) {//palautetaan AL, jossa on tiedot lähetys- ja vastaanottoSmartPosteista
         ArrayList<temp_storage.SmartPost> al = null;
         int toPostID = order.getToPostID();
         int fromPostID = order.getFromPostID();
@@ -440,8 +433,8 @@ public class Database_manager {
     }
 
     public void delOrder(temp_storage.Order order, boolean status, int mode) {//mode 1 = tallenna ja poista, mode 2 = poista
-        try {
-            Connection c;
+        try {                                                                 //Poistetaan valittu paketti/tilaus tietokannasta.
+            Connection c;                                                     //Halutessa voidaan kirjata kyseinen yksilö historiaan.
             //Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:DB.sqlite");
             c.setAutoCommit(false);
@@ -485,7 +478,7 @@ public class Database_manager {
         }
     }
 
-    public ArrayList<String> getHistory() {
+    public ArrayList<String> getHistory() {//Palautetaan AL, jossa on lähetyshistoria
         ArrayList<String> al = null;
 
         try {
@@ -535,7 +528,7 @@ public class Database_manager {
         return al;
     }
 
-    public boolean isWarehouseEmpty() {
+    public boolean isWarehouseEmpty() {//Tarkistetaan, että onko varasto tyhjä paketeista/lähetyksistä
         boolean bool = false;
         try {
             Connection c;
@@ -567,7 +560,7 @@ public class Database_manager {
         return bool;
     }
     
-    public void delObject(temp_storage.Object object){
+    public void delObject(temp_storage.Object object){//Poistetaan valittu esine tietokannasta
         try {
             Connection c;
             //Class.forName("org.sqlite.JDBC");

@@ -52,6 +52,9 @@ import temp_storage.*;
  * @author m7942
  */
 public class FXML_mainController implements Initializable {
+    //Tämä on varsinainen "pää"ohjelma. Tämä on kaiken keskus ja ydin.
+    //Jos tämä suljetaan, muut kaatuvat perässä.
+    //Eli lyhyesti: päävalikko.
 
     LogWriter lw = LogWriter.getInstance();
     Database_manager dbm = Database_manager.getInstance();
@@ -114,11 +117,14 @@ public class FXML_mainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         stageThis = Mainclass.getStage();
-        stageThis.setOnCloseRequest(new EventHandler() {
+        stageThis.setOnCloseRequest(new EventHandler() {//kun ollaan sulkemassa tätä ikkunaa
             @Override
             public void handle(Event event2) {
+                lw.logThis("Preparing to close the application...");
                 Calendar cal = Calendar.getInstance();
                 String time = cal.getTime().toString();
+                
+                //Tässä alla luodaan automaattiset kopiot lokista ja historiasta tiedostoihin
                 File file1 = new File("TIMOTEI_AUTOLOG_" + time + ".txt");
                 File file2 = new File("TIMOTEI_AUTOHISTORY_" + time + ".txt");
                 try {
@@ -126,7 +132,7 @@ public class FXML_mainController implements Initializable {
                     file1.createNewFile();
                     OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file1), "UTF-8");
 
-                    //valitaan avoin tab ja otetaan sen sisältä TextArean sisältö muuttujaan
+                    //valitaan ja otetaan sen sisältä ListViewn sisältö muuttujaan
                     ObservableList<String> al = log_listview.getItems();
                     output.write("###T.I.M.O.T.E.I AUTOLOG_FILE###\nProgram version: v.1.01\nMaker: Jaakko Tuuri\nTime@log_file_generation: " + time + "\n\n***LOG_FILE_START***\n");
                     for (String s : al) {
@@ -138,7 +144,7 @@ public class FXML_mainController implements Initializable {
                     file2.createNewFile();
                     OutputStreamWriter output2 = new OutputStreamWriter(new FileOutputStream(file2), "UTF-8");
 
-                    //valitaan avoin tab ja otetaan sen sisältä TextArean sisältö muuttujaan
+                    //valitaan ja otetaan sen sisältä ListViewn sisältö muuttujaan
                     ObservableList<String> al2 = history_listview.getItems();
                     output2.write("###T.I.M.O.T.E.I AUTOHISTORY_FILE###\nProgram version: v.1.01\nMaker: Jaakko Tuuri\n\n***HISTORY_FILE_START***\n");
                     if (al2 != null) {
@@ -151,23 +157,23 @@ public class FXML_mainController implements Initializable {
                     }
                     output2.write("***HISTORY_FILE_END***");
                     output2.close();
-                    System.out.println("SULJETAAN");
+                    System.out.println("Have a nice day :3");
                     Platform.exit();
                     //System.exit(0);
 
                 } catch (FileNotFoundException ex) {
-                    lw.logThis("#FileNotFoundException happened during writing the log into file " + file1.toString());
+                    lw.logThis("#FileNotFoundException happened during writing the log into file: " + file1.toString());
                     lw.logThis("..." + ex.getMessage());
                     lw.logThis("...@" + this.getClass());
                 } catch (IOException ex) {
-                    lw.logThis("#IOException happened during writing contents of log into file " + file1.toString());
+                    lw.logThis("#IOException happened during writing contents of log into file: " + file1.toString());
                     lw.logThis("..." + ex.getMessage());
                     lw.logThis("...@" + this.getClass());
                 }
             }
         }
         );
-
+        //You spin me right round... Pyörivä Doge... taas. Plus paketti :D Nämä ovat alussa näkymättömiä.
         final Timeline timeline2 = new Timeline();
         timeline2.setCycleCount(Timeline.INDEFINITE);
         final KeyValue kv2 = new KeyValue(doge_on_path.rotateProperty(), 360);
@@ -182,7 +188,7 @@ public class FXML_mainController implements Initializable {
         timeline.getKeyFrames().add(kf);
         timeline.play();
 
-        // TODO
+        //Otetaan historia tietokannasta ja esitetään se
         ArrayList<String> alH = dbm.getHistory();
         if (alH != null) {
             if (!alH.isEmpty()) {
@@ -191,7 +197,8 @@ public class FXML_mainController implements Initializable {
         }
 
         lw.logThis("Main program controller started...", this.log_listview);
-
+        
+        //lähetetään komponentteja muualle, jotta niitä voi myös käyttää muualta
         ifc.setOrderCombo(send_order_comb);
         ifc.setSPAreaCombo(choose_area_combo);
         ifc.setSPCombo(choose_smartpost_combo);
@@ -200,10 +207,10 @@ public class FXML_mainController implements Initializable {
         webview.getEngine().load(getClass().getResource("index.html").toExternalForm());
         //ArrayList<temp_storage.SmartPost> choose_sp_al;
         ArrayList<String> choose_area_al;
-        //choose_sp_al = dbm.getSPAL();
+        //haetaan SmartPost paikkakuntalista ja esitetään se
         choose_area_al = dbm.getSPAreaAL();
-        //choose_smartpost_combo.getItems().addAll(choose_sp_al);
         choose_area_combo.getItems().setAll(choose_area_al);
+        //Haetaan tiedot varastosta ja laitetaan ne esille
         ArrayList<Order> al = dbm.getOrderAL();
         if(al != null){
         if (!al.isEmpty()) {
@@ -214,7 +221,7 @@ public class FXML_mainController implements Initializable {
     }
 
     @FXML
-    private void saveLogToFile(ActionEvent event) {
+    private void saveLogToFile(ActionEvent event) {//tämä on manuaalinen lokin tallennus käyttäjän määrittämään paikkaan
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Tallenna lokitiedosto");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -231,10 +238,9 @@ public class FXML_mainController implements Initializable {
 
             try {
                 //kokeillaan kirjoittamista valittuun tiedostoon
-
                 OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
 
-                //valitaan avoin tab ja otetaan sen sisältä TextArean sisältö muuttujaan
+                //valitaan ja otetaan sen sisältä TextArean sisältö muuttujaan
                 ObservableList<String> al = log_listview.getItems();
                 Calendar cal = Calendar.getInstance();
                 output.write("###T.I.M.O.T.E.I LOG_FILE###\nProgram version: v.1.01\nMaker: Jaakko Tuuri\nTime@log_file_generation: " + cal.getTime().toString() + "\n\n***LOG_FILE_START***\n");
@@ -256,15 +262,14 @@ public class FXML_mainController implements Initializable {
     }
 
     @FXML
-    private void clearLog(ActionEvent event) {
+    private void clearLog(ActionEvent event) {//manuaalinen lokin tyhjennys(jos ei halua nähdä kaikkea moskaa mitä siellä on)
         log_listview.getItems().clear();
         lw.logThis("#Last log was cleared!");
     }
 
     @FXML
-    private void removeMapMarks(ActionEvent event) {//EI TOIMI VIELÄ!
-        //webview.getEngine().executeScript("document.createMarker(-25.363882,131.044922,'red')");
-        webview.getEngine().executeScript("document.deleteMarkers()");
+    private void removeMapMarks(ActionEvent event) {//Poistetaan kaikki karttamerkinnät, ja piilotetaan Doge ja laatikko
+        webview.getEngine().executeScript("document.deleteMarkers()");                              //(Ne pyörivät :D)
         this.doge_on_path.setVisible(false);
         this.packet_on_path.setVisible(false);
         this.label_on_path.setVisible(false);
@@ -272,7 +277,7 @@ public class FXML_mainController implements Initializable {
     }
 
     @FXML
-    private void openDatabaseSettings(ActionEvent event) {
+    private void openDatabaseSettings(ActionEvent event) {//avataan tietokanta-asetukset, mutta kysytään vielä varmistus
         try {
             Parent root4 = FXMLLoader.load(getClass().getResource("FXML_confirmation.fxml"));
             Scene scene4 = new Scene(root4);
@@ -296,16 +301,17 @@ public class FXML_mainController implements Initializable {
     }
 
     @FXML
-    private void sendOrder(ActionEvent event) {
+    private void sendOrder(ActionEvent event) {//lähetetään valittu paketti matkaan
         temp_storage.Order order = send_order_comb.getSelectionModel().getSelectedItem();
         if (order == null) {
             check_error_label.setText("Valitse lähetys ensin!");
         } else {
+            //asetetaan pyörivä Doge ja laatikko näkyviksi
             check_error_label.setText("");
             label_on_path.setVisible(true);
             doge_on_path.setVisible(true);
             packet_on_path.setVisible(true);
-
+            
             ArrayList<temp_storage.SmartPost> al = dbm.getSendAL(order);
             WebEngine engine = this.webview.getEngine();
 
@@ -370,6 +376,7 @@ public class FXML_mainController implements Initializable {
 
             //status: true=ehjä, false=rikki
             int mode = 1; //mode 1 = tallenna ja poista, mode 2 = poista
+            //siis tässä poistetaan lähetetty paketti varasto-tietokannasta
             dbm.delOrder(order, status, mode);
             ArrayList<Order> alO = dbm.getOrderAL();
             ComboBox<Order> combo = ifc.getOrderCombo();
@@ -425,7 +432,7 @@ public class FXML_mainController implements Initializable {
     }
 
     @FXML
-    private void spAreaChosen(ActionEvent event) { //Kun joku meni ja valitsi paikkakunnan
+    private void spAreaChosen(ActionEvent event) { //Kun käyttäjä valitsi paikkakunnan
         String area = choose_area_combo.getSelectionModel().getSelectedItem();
         ArrayList<SmartPost> al = dbm.getSPAL(area);
         choose_smartpost_combo.getItems().setAll(al);
@@ -439,7 +446,7 @@ public class FXML_mainController implements Initializable {
             check_error_label.setText("Valitse lähetys ensin!");
         } else {
             check_error_label.setText("");
-            dbm.setShowOrderDetails(order);
+            ifc.setShowOrderDetails(order);
             lw.logThis("Checking order details for ID: " + order.getWarehouseID() + "...");
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("FXML_orderDetails.fxml"));
@@ -466,13 +473,10 @@ public class FXML_mainController implements Initializable {
 
     @FXML
     private void deleteWarehouse(ActionEvent event) {//Tyhjennetään varasto. Jaa miksi? Jos joku niin haluaa :x
-        System.out.println("deletewarehouse kutsuttu!!");
         ObservableList<temp_storage.Order> obs = send_order_comb.getItems();
         send_order_comb.valueProperty().set(null);
         int mode = 2;
-        System.out.println("Ennen looppia@deletewarehouse");
         for(temp_storage.Order order : obs){
-            System.out.println("order@deletewarehouseloop "+order.getWarehouseID());
             dbm.delOrder(order, false, mode);
         }
         check_error_label.setText("Varasto tyhjennetty!");

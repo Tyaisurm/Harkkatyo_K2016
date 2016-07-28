@@ -12,6 +12,8 @@ import parsing.LogWriter;
  * @author m7942
  */
 public class TempStorageController {
+    //Tämä luokka hallinnoi tietokannasta saadun datan käyttöä ohjelmassa luomalla olioita,
+    //jotka toimivat ikään kuin "tilapäissäilöinä" datalle. Kaikki metodit luovat uuden olion, täyttävät tiedot ja palauttavat sen.
 
     LogWriter lw = LogWriter.getInstance();
 
@@ -28,7 +30,7 @@ public class TempStorageController {
         }
         return instance;
     }
-
+    //luodaan tilaus/paketti (Order) olio
     public Order setOrder(int wID, int oID, int ptypeID, int spTOid, int spFROMid) {
         Order varasto_paketti = new Order();
         varasto_paketti.warehouseID = wID;
@@ -38,8 +40,8 @@ public class TempStorageController {
         varasto_paketti.toPostID = spTOid;
         return varasto_paketti;
     }
-
-    public Object setObject(String description, double weight, int size, String name, boolean fragile, Integer objectID) {//"Integer", jotta voi olla null
+    //Luodaan esin (Object) olio
+    public Object setObject(String description, double weight, int size, String name, boolean fragile, Integer objectID) {//"Integer", jotta voi olla null!
         Object esine = new Object();
         esine.description = description;
         esine.weight = weight;
@@ -49,7 +51,7 @@ public class TempStorageController {
         esine.objectID = objectID;
         return esine;
     }
-
+    //Luodaan SmartPost (SmartPost) olio
     public SmartPost setSP(int postID, String postDesc, String availability, int postCode, String street, String city, String lat, String lng) {
         SmartPost sp = new SmartPost();
         sp.postID = postID;
@@ -62,7 +64,7 @@ public class TempStorageController {
         sp.lng = lng;
         return sp;
     }
-
+    //Luodaan pakettiluokka (Package) olio
     public Package setPackage(int classID, String description, double travelLimit, int sizeLimit) {
         Package paketti = new Package();
         paketti.classID = classID;
@@ -71,7 +73,7 @@ public class TempStorageController {
         paketti.sizeLimit = sizeLimit;
         return paketti;
     }
-
+    //Luodaan tiedot (Details) olio
     public Details setDetails(int whID, int objID, String objName, int objSize, double objWeight, boolean objFragile, String objDesc, int pckType, String pckDesc, String toPost, String fromPost) {
         Details details = new Details();
         details.whID = whID;
