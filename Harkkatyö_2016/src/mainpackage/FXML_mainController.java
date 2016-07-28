@@ -123,10 +123,14 @@ public class FXML_mainController implements Initializable {
                 lw.logThis("Preparing to close the application...");
                 Calendar cal = Calendar.getInstance();
                 String time = cal.getTime().toString();
-                
+
                 //Tässä alla luodaan automaattiset kopiot lokista ja historiasta tiedostoihin
-                File file1 = new File("TIMOTEI_AUTOLOG_" + time + ".txt");
-                File file2 = new File("TIMOTEI_AUTOHISTORY_" + time + ".txt");
+                File fileS1 = new File("TIMOTEI_Logs");
+                File fileS2 = new File("TIMOTEI_History");
+                fileS1.mkdir();
+                fileS2.mkdir();
+                File file1 = new File("./TIMOTEI_Logs/TIMOTEI_AUTOLOG_" + time + ".txt");
+                File file2 = new File("./TIMOTEI_History/TIMOTEI_AUTOHISTORY_" + time + ".txt");
                 try {
                     //kokeillaan kirjoittamista valittuun tiedostoon 1
                     file1.createNewFile();
@@ -197,7 +201,7 @@ public class FXML_mainController implements Initializable {
         }
 
         lw.logThis("Main program controller started...", this.log_listview);
-        
+
         //lähetetään komponentteja muualle, jotta niitä voi myös käyttää muualta
         ifc.setOrderCombo(send_order_comb);
         ifc.setSPAreaCombo(choose_area_combo);
@@ -212,10 +216,10 @@ public class FXML_mainController implements Initializable {
         choose_area_combo.getItems().setAll(choose_area_al);
         //Haetaan tiedot varastosta ja laitetaan ne esille
         ArrayList<Order> al = dbm.getOrderAL();
-        if(al != null){
-        if (!al.isEmpty()) {
-            send_order_comb.getItems().setAll(al);
-        }
+        if (al != null) {
+            if (!al.isEmpty()) {
+                send_order_comb.getItems().setAll(al);
+            }
         }
 
     }
@@ -311,7 +315,7 @@ public class FXML_mainController implements Initializable {
             label_on_path.setVisible(true);
             doge_on_path.setVisible(true);
             packet_on_path.setVisible(true);
-            
+
             ArrayList<temp_storage.SmartPost> al = dbm.getSendAL(order);
             WebEngine engine = this.webview.getEngine();
 
@@ -338,7 +342,7 @@ public class FXML_mainController implements Initializable {
             //status = onko esine perillä ehjä
             boolean status = true;
             temp_storage.Details details = dbm.showOrderDetails(order);
-            
+
             //joko menee rikki tai ei mee rikki... fifty-fifty :o
             if (order.getPackageClassID() == 1) {
                 speedP = 1;
@@ -357,7 +361,8 @@ public class FXML_mainController implements Initializable {
                 speedP = 7;
                 if (details.isObjFragile()) {
                     //jos esine on suurempi kuin kokoluokka 7, se säilyy ehjänä
-                    if (details.getObjSize() > 7) {
+                    //Myös yli 300kg painavat tavarat pysyvät ehjänä
+                    if ((details.getObjSize() > 7) || (details.getObjWeight() > 300.0)) {
                         status = true;
                     } else {
                         status = false;
@@ -435,7 +440,13 @@ public class FXML_mainController implements Initializable {
     private void spAreaChosen(ActionEvent event) { //Kun käyttäjä valitsi paikkakunnan
         String area = choose_area_combo.getSelectionModel().getSelectedItem();
         ArrayList<SmartPost> al = dbm.getSPAL(area);
-        choose_smartpost_combo.getItems().setAll(al);
+        try {
+            choose_smartpost_combo.getItems().setAll(al);
+        } catch (NullPointerException ex) {
+            lw.logThis("#NullPointerException happened when choosing SPArea!");
+            lw.logThis("..." + ex.getMessage());
+            lw.logThis("...@" + this.getClass());
+        }
         choose_smartpost_combo.valueProperty().set(null);
     }
 
@@ -476,7 +487,7 @@ public class FXML_mainController implements Initializable {
         ObservableList<temp_storage.Order> obs = send_order_comb.getItems();
         send_order_comb.valueProperty().set(null);
         int mode = 2;
-        for(temp_storage.Order order : obs){
+        for (temp_storage.Order order : obs) {
             dbm.delOrder(order, false, mode);
         }
         check_error_label.setText("Varasto tyhjennetty!");

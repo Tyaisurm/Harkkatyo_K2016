@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -17,8 +18,8 @@
       <Label layoutX="303.0" layoutY="30.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 17;" text="Lähetyksen tietojen tarkistus" />
       <Button fx:id="ok_button" layoutX="269.0" layoutY="361.0" mnemonicParsing="false" onAction="#okClicked" text="OK" />
       <Label layoutX="71.0" layoutY="83.0" style="-fx-font-weight: bold;" text="Varasto ID:" />
-      <Label layoutX="71.0" layoutY="124.0" style="-fx-font-weight: bold;" text="Esineen ID:" />
-      <Label layoutX="71.0" layoutY="139.0" style="-fx-font-weight: bold;" text="Esineen nimi:" />
+      <Label layoutX="71.0" layoutY="97.0" style="-fx-font-weight: bold;" text="Esineen ID:" />
+      <Label layoutX="71.0" layoutY="110.0" style="-fx-font-weight: bold;" text="Esineen nimi:" />
       <Label layoutX="71.0" layoutY="200.0" style="-fx-font-weight: bold;" text="Esineen selostus:" />
       <Label layoutX="338.0" layoutY="83.0" style="-fx-font-weight: bold;" text="Pakettityyppi:" />
       <Label layoutX="338.0" layoutY="98.0" style="-fx-font-weight: bold;" text="Pakettityypin selostus:" />
@@ -32,16 +33,16 @@
             <Image url="@../graphics/box.png" />
          </image>
       </ImageView>
-      <Label fx:id="objName_label" layoutX="176.0" layoutY="140.0" prefHeight="15.0" prefWidth="145.0" />
-      <Label fx:id="objID_label" layoutX="158.0" layoutY="125.0" prefHeight="15.0" prefWidth="63.0" />
+      <Label fx:id="objID_label" layoutX="158.0" layoutY="98.0" prefHeight="15.0" prefWidth="63.0" />
       <Label fx:id="whID_label" layoutX="158.0" layoutY="84.0" prefHeight="15.0" prefWidth="83.0" />
       <Label fx:id="objWeight_label" layoutX="214.0" layoutY="155.0" prefHeight="15.0" prefWidth="95.0" />
       <Label fx:id="objSize_label" layoutX="232.0" layoutY="170.0" prefHeight="15.0" prefWidth="51.0" />
       <Label fx:id="objFragile_label" layoutX="147.0" layoutY="185.0" prefHeight="15.0" prefWidth="105.0" />
-      <Label fx:id="objDesc_label" alignment="TOP_LEFT" layoutX="70.0" layoutY="216.0" prefHeight="93.0" prefWidth="250.0" wrapText="true" />
       <Label fx:id="pckType_label" layoutX="445.0" layoutY="84.0" prefHeight="15.0" prefWidth="105.0" />
       <Label fx:id="pckDesc_label" layoutX="338.0" layoutY="117.0" prefHeight="16.0" prefWidth="234.0" />
       <Label fx:id="fromPost_label" layoutX="182.0" layoutY="315.0" prefHeight="15.0" prefWidth="402.0" />
       <Label fx:id="toPost_label" layoutX="181.0" layoutY="334.0" prefHeight="15.0" prefWidth="402.0" />
+      <TextArea fx:id="objDesc_TA" editable="false" layoutX="70.0" layoutY="219.0" prefHeight="93.0" prefWidth="250.0" wrapText="true" />
+      <TextField fx:id="objName_TF" editable="false" layoutX="71.0" layoutY="129.0" prefHeight="25.0" prefWidth="250.0" />
    </children>
 </AnchorPane>

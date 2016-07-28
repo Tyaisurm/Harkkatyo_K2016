@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import parsing.*;
 
@@ -39,8 +41,6 @@ public class FXML_orderDetailsController implements Initializable {
     @FXML
     private Label objFragile_label;
     @FXML
-    private Label objDesc_label;
-    @FXML
     private Label pckType_label;
     @FXML
     private Label pckDesc_label;
@@ -49,9 +49,11 @@ public class FXML_orderDetailsController implements Initializable {
     @FXML
     private Label toPost_label;
     @FXML
-    private Label objName_label;
-    @FXML
     private Label objSize_label;
+    @FXML
+    private TextArea objDesc_TA;
+    @FXML
+    private TextField objName_TF;
 
     /**
      * Initializes the controller class.
@@ -70,8 +72,8 @@ public class FXML_orderDetailsController implements Initializable {
         } else {
             objFragile_label.setText("Ei");
         }
-        objName_label.setText(details.getObjName());
-        objDesc_label.setText(details.getObjDesc());
+        objName_TF.setText(details.getObjName());
+        objDesc_TA.setText(details.getObjDesc());
         pckDesc_label.setText(details.getPckDesc());
         pckType_label.setText(Integer.toString(details.getPckType()));
         fromPost_label.setText(details.getFromPost());

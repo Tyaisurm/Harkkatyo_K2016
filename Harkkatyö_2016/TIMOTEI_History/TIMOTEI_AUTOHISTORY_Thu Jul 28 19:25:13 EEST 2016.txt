@@ -1,0 +1,6 @@
+###T.I.M.O.T.E.I AUTOHISTORY_FILE###
+Program version: v.1.01
+Maker: Jaakko Tuuri
+
+***HISTORY_FILE_START***
+***HISTORY_FILE_END***

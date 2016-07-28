@@ -52,7 +52,7 @@
                                           <Image url="@../graphics/box.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="label_on_path" layoutX="36.0" layoutY="491.0" style="-fx-font-weight: bold; -fx-text-fill: green;" text="Nauti paketistasi :-)" visible="false" />
+                                    <Label fx:id="label_on_path" layoutX="36.0" layoutY="495.0" style="-fx-font-weight: bold; -fx-text-fill: green;" text="Nauti paketistasi :-)" visible="false" />
                                     <Label fx:id="error_sp_label" layoutX="180.0" layoutY="164.0" prefHeight="21.0" prefWidth="50.0" style="-fx-font-weight: bold; -fx-text-fill: red; -fx-font-size: 17;" />
                                     <Button fx:id="del_wh_button" layoutX="155.0" layoutY="458.0" mnemonicParsing="false" onAction="#deleteWarehouse" text="Tyhjennä" />
                                  </children>
