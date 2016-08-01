@@ -1,4 +1,0 @@
--raportti
--valmis tietokanta (.sqlite)
--video
-

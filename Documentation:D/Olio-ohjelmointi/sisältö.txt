@@ -1,3 +1,0 @@
--raportti
--video
--lista tietokannan luomiseksi olevista SQL-komennoista
