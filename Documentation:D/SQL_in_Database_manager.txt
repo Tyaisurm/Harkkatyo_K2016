@@ -1,0 +1,76 @@
+#getSPAL
+if(spArea == null)
+"SELECT * FROM smartpost INNER JOIN addresssp ON smartpost.postid=addresssp.postid INNER JOIN coordinatessp ON smartpost.postid=coordinatessp.postid;";
+
+else
+"SELECT * FROM smartpost INNER JOIN addresssp ON smartpost.postid=addresssp.postid INNER JOIN coordinatessp ON smartpost.postid=coordinatessp.postid WHERE city=?;";
+
+#getSPAreaAL
+"SELECT DISTINCT city from addresssp";
+
+#getObjectAL
+"SELECT * FROM object;";
+
+#getPackageAL
+"SELECT * FROM packettype;";
+
+#setObject
+"INSERT INTO 'Object' VALUES(?,?,?,?,?,?)";
+
+#setOrder
+"INSERT INTO 'Warehouse' VALUES(?,?,?,?,?)";
+
+#getOrderAL
+
+"SELECT * FROM warehouse;";
+
+#showOrderDetails
+"SELECT * FROM smartpost " 
+ + "WHERE postid = ?;";
+
+"SELECT * FROM smartpost " 
+ + "WHERE postid = ?;"; 
+
+"SELECT * FROM object " 
+ + "WHERE objectid = ?;"; 
+
+"SELECT * FROM packettype " 
+ + "WHERE classid = ?;"; 
+
+#getSendAL
+-FROM-
+"SELECT * FROM smartpost " 
+ + "WHERE postid=?;"; 
+
+"SELECT * FROM addresssp " 
+ + "WHERE postid = ?"; 
+
+"SELECT * FROM coordinatessp " 
+ + " WHERE postid = ?";
+
+-TO-
+"SELECT * FROM smartpost " 
+ + "WHERE postid=?;"; 
+
+"SELECT * FROM addresssp " 
+ + "WHERE postid = ?"; 
+
+"SELECT * FROM coordinatessp " 
+ + " WHERE postid = ?"; 
+
+#delOrder
+if(mode == 1)//kirjoitetaan historiaan, eli paketti lähetetty
+"INSERT INTO history VALUES(?,?,?,?,?,?,?,?);";
+
+
+"DELETE FROM warehouse WHERE packetid = ?;";
+
+#getHistory
+"SELECT * FROM history " 
+ + "INNER JOIN packettype ON history.classid = packettype.classid;"; 
+
+#isWarehouseEmpty
+"SELECT * FROM warehouse;";
+
+#delObject
+"DELETE FROM object WHERE ObjectID = ?;";

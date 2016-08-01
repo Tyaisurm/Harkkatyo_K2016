@@ -1,0 +1,5 @@
+"DELETE FROM smartpost";
+
+"INSERT INTO 'Smartpost' VALUES(?,?,?)"; 
+"INSERT INTO 'AddressSP' VALUES(?,?,?,?)"; 
+"INSERT INTO 'CoordinatesSP' VALUES(?,?,?)";

@@ -1,0 +1,5 @@
+(suoritetaan database_init.sql sisältö loopissa...)
+
+"INSERT INTO 'Smartpost' VALUES(?,?,?)"; 
+"INSERT INTO 'AddressSP' VALUES(?,?,?,?)"; 
+"INSERT INTO 'CoordinatesSP' VALUES(?,?,?)"; 
